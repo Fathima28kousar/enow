@@ -98,7 +98,7 @@ const Navbar = ({ cart }) => {
               </Link>
             </li>
             
-            {isLog ? (<li><button onClick={handleLogout}>Logout</button></li>) : ( <Link to="/login">Login</Link>)}
+            {isLog ? <Link to="/" onClick={handleLogout}>Logout</Link> : ( <Link to="/login">Login</Link>)}
             {/* <li className={styles.profile}>
               <FaUser />
             </li> */}
