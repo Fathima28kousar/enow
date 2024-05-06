@@ -1,94 +1,154 @@
-import React from 'react'
-import {useEffect,useState} from 'react'
-import { useLocation } from 'react-router-dom';
-import axios from 'axios'
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import { server } from "../server";
+import { useHistory } from "react-router-dom";
+import styles from './OnlineSuccess.module.css'
+import Button from './home/button/Button'
 
-const Online = ({setCart}) => {
-    const location = useLocation();
-    console.log(location.state);
-    const [formData, setFormData] = useState(null);
-    const formdata = location.state
-    console.log(formdata)
-    const { firstName, lastName, emails, pincode, address, apartment, phone } = location.state || {};
-    const { cartItems, totalPrice } = location.state || {};
-    console.log(cartItems,totalPrice)
-    console.log(firstName, lastName, emails, pincode, address, apartment, phone)
+const Online = ({ location }) => {
+  const {firstName,lastName, emails,pincode, address, apartment, phone, totalPrice, cartItems,} = location.state || {};
+  console.log( firstName, lastName, emails, pincode, address, apartment, phone, totalPrice, cartItems);
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const history = useHistory();
+  console.log(location.state);
 
-
-    
-  useEffect(() => {
-    // Call handleSuccess when the component mounts
-    handleSuccess();
-    fetchData();
-  }, []);
-
-
-  const fetchData = async () => {
+  const handlePaymentSuccess = async (response) => {
     try {
-        // Fetch data from backend API based on form ID (replace 'formId' with actual ID)
-        const response = await axios.get(`http://127.0.0.1:8000/api/`);
+      let bodyData = new FormData();
 
-        // Set form data in component state
-        setFormData(response.data);
-        
+      // we will send the response we've got from razorpay to the backend to validate the payment
+      bodyData.append("response", JSON.stringify(response));
+      await axios({
+        url: `${server}/razorpay/payment/success/`,
+        method: "POST",
+        data: bodyData,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          // console.log("Everything is OK!");
+          setName("");
+          setAmount("");
+          history.push({
+            pathname: "/online",
+            state: {
+              firstName,
+              lastName,
+              emails,
+              pincode,
+              address,
+              apartment,
+              phone,
+              cartItems: cartItems,
+              totalPrice: totalPrice,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
-        console.error('Error fetching data:', error);
+      console.log(console.error());
     }
-};
-
-
-
-  const handleSuccess = () => {
-    // Clear the cart when the order is successful
-    setCart([]);
-    localStorage.removeItem('cart');
   };
 
-  if (!cartItems || !totalPrice) {
-    return <div>No items in cart.</div>;
-  }
+  const loadScript = () => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    document.body.appendChild(script);
+  };
+
+  const showRazorpay = async () => {
+    if (!name.trim() ) {
+      alert("Name cannot be empty.");
+      return;
+    }
+    
+    const res = await loadScript();
+
+    let bodyData = new FormData();
+
+    // we will pass the amount and product name to the backend using form data
+    bodyData.append("amount", totalPrice);
+    bodyData.append("name", name);
+
+    const data = await axios({
+      url: `${server}/razorpay/pay/`,
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      data: bodyData,
+    }).then((res) => {
+      return res;
+    });
+
+    var options = {
+      key_id: "rzp_test_wucadtaz2NQLqm", // in react your environment variable must start with REACT_APP_
+      key_secret: "Un2BvQcbNWU4MpjvhlF28G9W",
+      amount: data.data.payment.amount,
+      currency: "INR",
+      name: "Ecommerce",
+      description: "Test transaction",
+      // image: "", // add image url
+      order_id: data.data.payment.id,
+      handler: function (response) {
+        // we will handle success by calling handlePaymentSuccess method and
+        // will pass the response that we've got from razorpay
+        handlePaymentSuccess(response);
+      },
+      prefill: {
+        name: "User's name",
+        email: "User's email",
+        contact: "User's phone",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    var rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
   return (
-    <div>
-      <div>
-      {location.state ? (
+    <div className={styles.register}>
+      <div className={styles.display}>
+        <h1>Online payment</h1>
+      <div className={styles.form}>
+      <form>
         <div>
-          <h1>Your online Order is Successfully placed</h1>
-          <p>First Name: {firstName}</p>
-          <p>Last Name: {lastName}</p>
-          <p>Email: {emails}</p>
-          <p>Pincode: {pincode}</p>
-          <p>Address: {address}</p>
-          <p>Apartment: {apartment}</p>
-          <p>Phone: {phone}</p>
-
-      </div>
-      ) : (
-        <p>No order details available.</p>
-      )}
-      </div>
-      <div>
-        Order details:
-      {cartItems && cartItems.length > 0 ? (
-        <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              {/* Render each cart item details */}
-              <p>{item.name}</p>
-              <p>{item.quantity}</p>
-              {/* Add more details if needed */}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No items in cart.</p>
-      )}
-      </div>
-      <div>
-        <h2>Total Price: ${totalPrice}</h2>
-      </div>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <label htmlFor="amount">Enter amount</label>
+        <input
+          type="number"
+          id="amount"
+          // value={amount}
+          value={totalPrice}
+          disabled
+          onChange={(e) => setAmount(e.target.value)}
+        />
+      </form>
+      <Button text="Pay via Razorpay" type="submit" onClick={showRazorpay}/>
     </div>
-  )
-}
-
-export default Online
-
+    </div>
+    </div>
+   
+  );
+};
+export default Online;

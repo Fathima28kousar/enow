@@ -38,8 +38,7 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
       localStorage.setItem('cart', JSON.stringify(updatedCart));
     }else{
       setCart(prevCart => [...prevCart, obj]);
-      
-      
+      localStorage.setItem('cart', JSON.stringify([...cart, obj]));
     }
     setCount((prevCount) => prevCount + quantity);
     setProductTotalInCart((prevTotal) => prevTotal + quantity);
