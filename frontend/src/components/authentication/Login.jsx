@@ -23,12 +23,13 @@ const Login = () => {
       loggedUser && input.email === loggedUser.email && 
       input.password === loggedUser.password
     ){
+      
       localStorage.setItem("loggedIn",true);
-      history.push('/');
       onClick();
-      // setTimeout(() => {
-       
-      // }, 2000);
+      setTimeout(() => {
+        // history.push('/');
+        window.location = "/";
+      }, 1000);
     }else{
       toast.error(`Wrong email or password`, {
         position: "top-center",}
@@ -85,15 +86,12 @@ const Login = () => {
             })}
           />
           </div>
-          {/* <button type="submit">Login</button> */}
           <Button text="Login" type="submit"/>
         </form>
         <p>Don't have an account? <Link to="/register"> Register here</Link></p>
       </div>
       </div>
-      
     </div>
-    
   )
 }
 

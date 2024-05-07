@@ -58,9 +58,6 @@ const handleSubmit = async (event) => {
       <div className={styles.checkout}>
         <h1>Checkout</h1>
         <div className={styles.billingDetails}>
-          <div className={styles.form}>
-            <h3>Billing details</h3>
-          </div>
           <div className={styles.order}>
             <h3 className={styles.h3}>Your order</h3>
             {Object.keys(cartItems).length > 0 ?(

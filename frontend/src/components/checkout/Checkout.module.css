@@ -7,23 +7,16 @@
   flex-direction: column;
   background-color: #f8f6f4;
 
-  h1 {
-    padding-left: 20px;
+
+  h1{
+    padding-bottom: 10px;
   }
   .billingDetails {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 
-    .form {
-      padding: 50px;
-      flex: 1.1;
-
-      h3 {
-        padding: 20px 0;
-        border-bottom: 1px solid #ddd;
-      }
-    }
     .order {
       height: 100%;
       border: 1px solid #ddd;

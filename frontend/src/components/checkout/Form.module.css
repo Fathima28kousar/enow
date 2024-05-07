@@ -6,11 +6,21 @@
   background-color: #F8F6F3;
   padding:  10px 40px;
   margin: 0 auto;
+  flex-direction: column;
   
+  .billingDetails {
+    padding: 10px 0;  
+    width: 100%;
+    h2 {
+      padding: 20px 0;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+  }
 
   form {
     width: 70%;
-
+    padding-top: 20px;
     div {
       margin-bottom: 15px;
     }
@@ -91,7 +101,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 40px 20px;
+    padding:  20px;
     form {
       
       label {

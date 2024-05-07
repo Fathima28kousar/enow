@@ -21,6 +21,9 @@ import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
 import Online from "./components/Online";
 import Success from "./components/Success";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer} from "react-toastify";
+
 
 
 const App = () => {
@@ -39,6 +42,10 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer position="top-right" autoClose={1000} hideProgressBar={false} newestOnTop={false} 
+      closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
+
+      
       <Navbar cart={cart} />
       <Switch>
         <Route path="/login" component={Login}/>

@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { FaShoppingBasket, FaUser, FaBars, FaTimes } from "react-icons/fa";
+import { FaShoppingBasket, FaBars, FaTimes } from "react-icons/fa";
 import { useState,useEffect} from "react";
 import {useHistory} from 'react-router-dom'
+import { toast } from "react-toastify";
+import Button from '../home/button/Button'
 
 
 const Navbar = ({ cart }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(false);
   const [isLog, setIsLog] = useState(() => !!JSON.parse(localStorage.getItem("loggedIn")));
 
   const toggleDropDown = () => {
@@ -21,12 +22,7 @@ const Navbar = ({ cart }) => {
 
   const history = useHistory()
 
-  // useEffect(() => {
-  //   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-  //   setLoggedIn(isLoggedIn);
-  // }, [setLoggedIn]);
   useEffect(() => {
-    // setIsLog(!!localStorage.getItem("loggedIn"));
     const loggedIn = localStorage.getItem("loggedIn") === "true";
     setIsLog(loggedIn);
   }, []);
@@ -34,17 +30,22 @@ const Navbar = ({ cart }) => {
   const handleLogout = () => {
     localStorage.removeItem('loggedIn');
     setIsLog(false);
-    // setTimeout(() => {
-      history.push('/login');
-    // }, 2000);
+    onClick();
+    history.push('/login');
   }
 
-  
 
-  const handleLogin = () => {
-      history.push('/login');
-
-  };
+  const onClick = () => {
+    toast.success(`Logged Out !`, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })};
 
   // useEffect(() => {
   //   const handleResize = () => {
@@ -98,11 +99,10 @@ const Navbar = ({ cart }) => {
               </Link>
             </li>
             
-            {isLog ? <Link to="/" onClick={handleLogout}>Logout</Link> : ( <Link to="/login">Login</Link>)}
-            {/* <li className={styles.profile}>
-              <FaUser />
-            </li> */}
-            <li></li>
+            
+            <li className={styles.profile}>
+            {isLog && <li><Link to="/" onClick={handleLogout}>Logout</Link></li>}
+            </li>
           </ul>
         </div>
 
@@ -134,7 +134,7 @@ const Navbar = ({ cart }) => {
                 <Link to="/contact" onClick={closeDropDown}>Contact</Link>
               </li>
               <li>
-              {isLog ? <Link to="/" onClick={handleLogout}>Logout</Link> : ( <Link to="/login">Login</Link>)}
+              {isLog ? (<Link to="/" onClick={handleLogout}>Logout</Link>):(<Link to="/login">Login</Link>)}
               </li>
             </ul>
           </div>

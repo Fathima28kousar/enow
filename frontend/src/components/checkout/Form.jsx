@@ -25,7 +25,6 @@ const Form = ({ setCart }) => {
         e.preventDefault();
 
         if (!firstName || !lastName || !emails || !pincode || !address || !phone || !apartment || !city) {
-            // Set form errors for empty fields
             setFormErrors({
                 firstName: !firstName ? '*This field is required' : '',
                 lastName: !lastName ? '*This field is required' : '',
@@ -90,6 +89,7 @@ const Form = ({ setCart }) => {
                             totalPrice: totalPrice
                         }
                     });
+                    
                 }
                
             })
@@ -115,6 +115,9 @@ const Form = ({ setCart }) => {
 
   return (
     <div className={styles.container}>
+        <div className={styles.billingDetails}>
+            <h2>Billing details</h2>
+        </div>
       <form action="http://127.0.0.1:8000/api/" method="post" onSubmit={handleSubmit}>
             <div className={styles.name}>
                 <div className={styles.firstName}>
@@ -159,7 +162,7 @@ const Form = ({ setCart }) => {
                 <input type='email' name='emails' value={emails} onChange={(e) => setEmail(e.target.value)} />
                 {formErrors.emails && <em className={styles.error}>{formErrors.emails}</em>}
             </div>
-            <Button type='submit' text='SUBMIT' onClick={handleSubmit}/>
+            <Button type='submit' text='Proceed to Checkout' onClick={handleSubmit}/>
             
         </form>
     </div>

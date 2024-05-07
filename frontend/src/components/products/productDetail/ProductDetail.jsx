@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import items from "../data";
 import Button from "../../home/button/Button";
 import ReactImageMagnify from "react-image-magnify";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetail = ({ cart, setCart, count, setCount }) => {
@@ -55,22 +55,11 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
       progress: undefined,
       theme: "light",
     });
+    
   };
 
   return (
     <div className={styles.mainContainer}>
-      <ToastContainer
-        position="top-center"
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
 
       <div className={styles.container}>
         <div className={styles.productImg}>

@@ -13,10 +13,12 @@ const Button = ({text,icon,iconSize, onClick}) => {
 
   return (
     <div>
+    
       <button className={styles.button} onClick={onClick}>
       {IconComponent && <IconComponent  size={iconSize}/>} 
             <span>{text}</span>
         </button>
+    
     </div>
   )
 }
