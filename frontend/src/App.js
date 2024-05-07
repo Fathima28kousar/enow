@@ -7,9 +7,9 @@ import Home from "./components/home/Home";
 import Contact from "./components/contact/Contact";
 import Cart from "./components/cart/Cart";
 import About from "./components/about/About";
-import Product from "./components/products/product/Product";
+// import Product from "./components/products/product/Product";
 import Everything from "./components/everything/Everything";
-import Groceries from "./components/groceries/Groceries";
+import Groceries from "./components/everything/Groceries";
 import ProductDetail from "./components/products/productDetail/ProductDetail";
 import { useState } from "react";
 import Checkout from "./components/checkout/Checkout";
@@ -29,8 +29,8 @@ import { ToastContainer} from "react-toastify";
 const App = () => {
   const [cart, setCart] = useState([]);
   const [count, setCount] = useState(0);
-  console.log(cart)
-  console.log(cart.length)
+  // console.log(cart)
+  // console.log(cart.length)
 
 
   useEffect(() => {
@@ -51,26 +51,21 @@ const App = () => {
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
         <ProtectedRoutes>
-        <Route path="/" exact component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/product" component={Product} />
-        <Route path="/everything" exact component={Everything} />
-        <Route path="/Groceries" component={Groceries} />
-        <Route path="/juice" component={Juice}/>
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/success" component={Online} />
-        <Route path="/billingDetails"><Form setCart={setCart}/></Route>
-        <Route path="/online" ><Success setCart={setCart}/></Route>
-        <Route path="/codsuccess"><COD setCart={setCart}/></Route>
-        <Route path="/cart"><Cart cart={cart} setCart={setCart} /></Route>
-        <Route path="/productDetail/:id">
-          <ProductDetail
-            setCart={setCart}
-            cart={cart}
-            count={count}
-            setCount={setCount}
-          />
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          {/* <Route path="/product" component={Product} /> */}
+          <Route path="/everything" exact component={Everything} />
+          <Route path="/Groceries" component={Groceries} />
+          <Route path="/juice" component={Juice}/>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/success" component={Online} />
+          <Route path="/billingDetails"><Form setCart={setCart}/></Route>
+          <Route path="/online" ><Success setCart={setCart}/></Route>
+          <Route path="/codsuccess"><COD setCart={setCart}/></Route>
+          <Route path="/cart"><Cart cart={cart} setCart={setCart} /></Route>
+          <Route path="/productDetail/:id">
+          <ProductDetail setCart={setCart} cart={cart} count={count} setCount={setCount}/>
         </Route>
         </ProtectedRoutes>
       </Switch>

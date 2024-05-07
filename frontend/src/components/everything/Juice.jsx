@@ -1,8 +1,12 @@
+import Search from "../search/Search";
+import items from '../products/data'
+
 
 const Juice = () => {
+  const reversedItems = items.slice(6, 12)
   return (
     <div>
-      <h1>Juice section!</h1>
+      <Search items={reversedItems} />
     </div>
   )
 }
