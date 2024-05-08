@@ -3,7 +3,11 @@ import Button from "../../home/button/Button";
 import {FaRegCheckCircle } from "react-icons/fa";
 
 
+
 const Certify = () => {
+  const goToBtn = () => {
+    window.scrollTo({top:0,left:0,behavior:'smooth'})
+  }
   return (
     <div>
       <div className={styles.certificate}>
@@ -54,7 +58,7 @@ const Certify = () => {
             </li>
           </ul>
         </div>
-        <Button text="START SHOPPING" icon="cart" />
+        <Button text="START SHOPPING" icon="cart" onClick={goToBtn}/>
       </div>
     </div>
   )

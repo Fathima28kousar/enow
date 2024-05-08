@@ -30,7 +30,13 @@
             gap: 15px;
             align-self: flex-start;
             flex:1;
-    
+            
+            a{
+                color: #598f16;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
             .prodName{
                 display: flex;
                 align-items: center;

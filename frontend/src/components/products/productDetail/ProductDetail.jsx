@@ -61,6 +61,7 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
 
   return (
     <div className={styles.mainContainer}>
+        
       <div className={styles.container}>
         <div className={styles.productImg}>
           <ReactImageMagnify
@@ -95,8 +96,8 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
               onChange={handleQuantityChange}
             />
             <Button text="ADD TO CART" onClick={addToCart} />
-            {cart.length > 0 && <Link to="/cart">View Cart</Link>}
           </div>
+          {cart.length > 0 && <Link to="/cart">View Cart</Link>}
         </div>
         
       </div>

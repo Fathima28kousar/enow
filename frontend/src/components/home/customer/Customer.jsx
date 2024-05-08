@@ -3,6 +3,9 @@ import { FaStar } from "react-icons/fa";
 import Button from "../button/Button";
 
 const Customer = () => {
+  const goToBtn = () => {
+    window.scrollTo({top:0,left:0,behavior:'smooth'})
+  }
   
   return (
     <div className={styles.container}>
@@ -35,7 +38,7 @@ const Customer = () => {
           <section className={styles.deal}>
             <h1>Deal Of The Day 15% Off On All Vegetables!</h1>
             <p>I am text block. Click edit button to change this tex em ips.</p>
-            <Button text="SHOP NOW" icon="arrow" />
+            <Button text="SHOP NOW" icon="arrow" onClick={goToBtn}/>
           </section>
 
           <section className={styles.review}>
