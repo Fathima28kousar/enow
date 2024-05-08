@@ -6,6 +6,7 @@ import Button from "../../home/button/Button";
 import ReactImageMagnify from "react-image-magnify";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {Link} from 'react-router-dom'
 
 const ProductDetail = ({ cart, setCart, count, setCount }) => {
   const { id } = useParams();
@@ -60,7 +61,6 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
 
   return (
     <div className={styles.mainContainer}>
-
       <div className={styles.container}>
         <div className={styles.productImg}>
           <ReactImageMagnify
@@ -95,6 +95,7 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
               onChange={handleQuantityChange}
             />
             <Button text="ADD TO CART" onClick={addToCart} />
+            {cart.length > 0 && <Link to="/cart">View Cart</Link>}
           </div>
         </div>
         

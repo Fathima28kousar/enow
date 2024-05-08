@@ -172,6 +172,7 @@
 
 @media(max-width: 319px){
     .mainContainer{
+
         .container{
             gap: 20px;
             .productCont{

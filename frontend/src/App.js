@@ -29,8 +29,8 @@ import { ToastContainer} from "react-toastify";
 const App = () => {
   const [cart, setCart] = useState([]);
   const [count, setCount] = useState(0);
-  // console.log(cart)
-  // console.log(cart.length)
+  console.log(cart)
+  console.log(cart.length)
 
 
   useEffect(() => {

@@ -67,6 +67,10 @@ const Online = ({ location }) => {
       alert("Name cannot be empty.");
       return;
     }
+    if (!totalPrice) {
+      alert("Total price cannot be empty.");
+      return;
+    }
     
     const res = await loadScript();
 
