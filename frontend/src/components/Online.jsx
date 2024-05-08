@@ -8,11 +8,11 @@ import Button from './home/button/Button'
 
 const Online = ({ location }) => {
   const {firstName,lastName, emails,pincode, address, apartment, phone, totalPrice, cartItems,} = location.state || {};
-  console.log( firstName, lastName, emails, pincode, address, apartment, phone, totalPrice, cartItems);
+  // console.log( firstName, lastName, emails, pincode, address, apartment, phone, totalPrice, cartItems);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const history = useHistory();
-  console.log(location.state);
+  // console.log(location.state);
 
   const handlePaymentSuccess = async (response) => {
     try {
@@ -49,10 +49,10 @@ const Online = ({ location }) => {
           });
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } catch (error) {
-      console.log(console.error());
+      // console.log(console.error());
     }
   };
 

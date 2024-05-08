@@ -45,7 +45,7 @@ const ProductDetail = ({ cart, setCart, count, setCount }) => {
     setProductTotalInCart((prevTotal) => prevTotal + quantity);
     
 
-    console.log("cart element", cart);
+    // console.log("cart element", cart);
     toast.success(` ${quantity} item Added !`, {
       position: "top-center",
       autoClose: 1000,

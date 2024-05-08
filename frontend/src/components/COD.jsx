@@ -5,7 +5,7 @@ import styles from "./COD.module.css";
 
 const COD = ({ setCart }) => {
   const location = useLocation();
-  console.log(location.state);
+  // console.log(location.state);
   const [formData, setFormData] = useState(null);
   const formdata = location.state;
   const {
@@ -19,8 +19,8 @@ const COD = ({ setCart }) => {
     totalPrice,
     cartItems,
   } = location.state || {};
-  console.log(cartItems, totalPrice);
-  console.log(firstName, lastName, emails, address, pincode, phone, apartment);
+  // console.log(cartItems, totalPrice);
+  // console.log(firstName, lastName, emails, address, pincode, phone, apartment);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const COD = ({ setCart }) => {
       // Set form data in component state
       setFormData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     }
   };
 

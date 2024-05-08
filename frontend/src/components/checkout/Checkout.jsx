@@ -6,9 +6,9 @@ import { useHistory } from "react-router-dom";
 const Checkout = (props) => {
   const { cartItems = {} } = props.location.state || {};
   const { totalPrice = {} } = props.location.state || {};
-  console.log(props.location.state);
-  console.log(cartItems)
-  console.log(totalPrice)
+  // console.log(props.location.state);
+  // console.log(cartItems)
+  // console.log(totalPrice)
 
   const history = useHistory();
 
@@ -38,7 +38,7 @@ const selectedPaymentMethod = formData.paymentMethod;
 // Function to handle form submission
 const handleSubmit = async (event) => {
   event.preventDefault();
-  console.log("Form submitted with data:", formData);
+  // console.log("Form submitted with data:", formData);
   if (selectedPaymentMethod === 'Cash On Delivery' || selectedPaymentMethod === 'Online Payment') { 
       history.push({
         pathname:"/billingDetails",

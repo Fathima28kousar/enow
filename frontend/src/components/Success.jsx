@@ -6,14 +6,14 @@ import styles from './Success.module.css'
 
 const Success = ({setCart}) => {
     const location = useLocation();
-    console.log(location.state);
+    // console.log(location.state);
     const [formData, setFormData] = useState(null);
     const formdata = location.state
-    console.log(formdata)
+    // console.log(formdata)
     const { firstName, lastName, emails, pincode, address, apartment, phone } = location.state || {};
     const { cartItems, totalPrice } = location.state || {};
-    console.log(cartItems,totalPrice)
-    console.log(firstName, lastName, emails, pincode, address, apartment, phone)
+    // console.log(cartItems,totalPrice)
+    // console.log(firstName, lastName, emails, pincode, address, apartment, phone)
     const [currentDate,setCurrentDate] = useState(new Date())
 
 
@@ -34,7 +34,7 @@ const Success = ({setCart}) => {
         setFormData(response.data);
         
     } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
     }
 };
 
