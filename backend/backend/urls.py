@@ -26,5 +26,5 @@ router.register("", CustomerView, basename='CustomerView')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('razorpay/',include('orders.urls')),
+    # path('razorpay/',include('orders.urls')),
 ]
