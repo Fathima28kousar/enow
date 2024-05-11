@@ -5,7 +5,7 @@ import json  # Import json module to parse JSON data
 from .models import *
 from .serializers import CustomerSerializer,TransactionSerializer
 from rest_framework import viewsets
-import razorpay
+# import razorpay
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.serializers import ValidationError
 from rest_framework import status
@@ -15,93 +15,93 @@ from rest_framework.decorators import api_view
 
 
 
-@api_view(['POST'])
-def start_payment(request):
-    # request.data is coming from frontend
-    amount = request.data['amount']
-    name = request.data['name']
+# @api_view(['POST'])
+# def start_payment(request):
+#     # request.data is coming from frontend
+#     amount = request.data['amount']
+#     name = request.data['name']
 
-    client = razorpay.Client(auth=('rzp_test_wucadtaz2NQLqm', 'Un2BvQcbNWU4MpjvhlF28G9W'))
+#     client = razorpay.Client(auth=('rzp_test_wucadtaz2NQLqm', 'Un2BvQcbNWU4MpjvhlF28G9W'))
     
 
-    payment = client.order.create({
-        'amount': int(float(amount)) * 100,
-        'currency': 'INR',
-        'payment_capture': '1'})
+#     payment = client.order.create({
+#         'amount': int(float(amount)) * 100,
+#         'currency': 'INR',
+#         'payment_capture': '1'})
     
 
-    order_id = payment['id']
-    order_status = payment['status']
-    if order_status == 'created':
-        order = Transaction.objects.create(
-            name=name,
-            amount=amount,
-            order_id = order_id)
-        print(order)
-        serializer = TransactionSerializer(order)
+#     order_id = payment['id']
+#     order_status = payment['status']
+#     if order_status == 'created':
+#         order = Transaction.objects.create(
+#             name=name,
+#             amount=amount,
+#             order_id = order_id)
+#         print(order)
+#         serializer = TransactionSerializer(order)
 
-    data = {
-        "payment": payment,
-        "order": serializer.data
-    }
-    print(data)
+#     data = {
+#         "payment": payment,
+#         "order": serializer.data
+#     }
+#     print(data)
     
-    return Response(data)
+#     return Response(data)
 
 
-@api_view(['POST'])
-def handle_payment_success(request):
-    # request.data is coming from frontend
-    res = json.loads(request.data["response"])
+# @api_view(['POST'])
+# def handle_payment_success(request):
+#     # request.data is coming from frontend
+#     res = json.loads(request.data["response"])
 
-    ord_id = ""
-    raz_pay_id = ""
-    raz_signature = ""
+#     ord_id = ""
+#     raz_pay_id = ""
+#     raz_signature = ""
 
-    data = {}
+#     data = {}
 
-    for key in res.keys():
-        if key == 'razorpay_order_id':
-            # data['razorpay_order_id'] = val
-            ord_id = res[key]
-        elif key == 'razorpay_payment_id':
-            # data['razorpay_payment_id'] = val
-            raz_pay_id = res[key]
-        elif key == 'razorpay_signature':
-            # data['razorpay_signature'] = val
-            raz_signature = res[key]
+#     for key in res.keys():
+#         if key == 'razorpay_order_id':
+#             # data['razorpay_order_id'] = val
+#             ord_id = res[key]
+#         elif key == 'razorpay_payment_id':
+#             # data['razorpay_payment_id'] = val
+#             raz_pay_id = res[key]
+#         elif key == 'razorpay_signature':
+#             # data['razorpay_signature'] = val
+#             raz_signature = res[key]
             
 
-    order = Transaction.objects.filter(razorpay_payment_id=ord_id).first()
+#     order = Transaction.objects.filter(razorpay_payment_id=ord_id).first()
 
-    data = {
-        'razorpay_order_id': ord_id,
-        'razorpay_payment_id': raz_pay_id,
-        'razorpay_signature': raz_signature
-    }
+#     data = {
+#         'razorpay_order_id': ord_id,
+#         'razorpay_payment_id': raz_pay_id,
+#         'razorpay_signature': raz_signature
+#     }
 
     
-    client = razorpay.Client(auth=('rzp_test_wucadtaz2NQLqm', 'Un2BvQcbNWU4MpjvhlF28G9W'))
-    check = client.utility.verify_payment_signature(data)
+#     client = razorpay.Client(auth=('rzp_test_wucadtaz2NQLqm', 'Un2BvQcbNWU4MpjvhlF28G9W'))
+#     check = client.utility.verify_payment_signature(data)
 
-    print(check)
-    if check is not None:
-        print("Redirect to error url or error page")
-        return Response({'error': 'Something went wrong'})
+#     print(check)
+#     if check is not None:
+#         print("Redirect to error url or error page")
+#         return Response({'error': 'Something went wrong'})
     
-    if order:
-        order.paid = True
-        order.save()
-    else:
-        return Response({'error': 'Transaction not found'}, status=status.HTTP_404_NOT_FOUND)
+#     if order:
+#         order.paid = True
+#         order.save()
+#     else:
+#         return Response({'error': 'Transaction not found'}, status=status.HTTP_404_NOT_FOUND)
     
    
 
-    res_data = {
-    'message': 'payment successfully received!'
-    }
-    print(res_data)
-    return Response(res_data)
+#     res_data = {
+#     'message': 'payment successfully received!'
+#     }
+#     print(res_data)
+#     return Response(res_data)
 
 
 class CustomerView(viewsets.ModelViewSet):
